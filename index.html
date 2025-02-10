@@ -123,97 +123,188 @@
       to { opacity: 1; }
     }
 
-    /* Raining Effect Card */
-    .rain-card {
-      max-width: 800px;
-      padding: 30px;
-      background-color: rgba(0, 0, 0, 0.4);
-      border-radius: 25px;
-      text-align: center;
-      color: #ff0066;
-      box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.3);
-      position: relative;
-      opacity: 0;
-      animation: fadeInCard 2s ease-out forwards;
-      overflow: hidden;
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      animation: bounceFooter 2s ease-out infinite alternate;
     }
 
-    @keyframes fadeInCard {
+    @keyframes bounceFooter {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+
+    .hearts-container {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+    }
+
+    .heart-anim {
+      font-size: 30px;
+      color: #ff0066;
+      animation: heartAnimation 0.5s ease-in-out infinite;
+      margin: 10px;
+      display: inline-block;
+    }
+
+    @keyframes heartAnimation {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.5); }
+      100% { transform: scale(1); }
+    }
+
+    .love-message {
+      font-size: 40px;
+      font-weight: bold;
+      color: #ff0066;
+      margin-top: 30px;
+      animation: fadeLoveMessage 3s ease-out, floatMessage 2s ease-in-out infinite alternate;
+      text-shadow: 0 0 10px rgba(255, 102, 178, 0.8);
+    }
+
+    @keyframes fadeLoveMessage {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    /* Raining Animation */
-    .rain {
-      position: absolute;
+    @keyframes floatMessage {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .full-screen-message {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png') repeat;
-      animation: rainAnimation 1s linear infinite;
-      z-index: -1;
-    }
-
-    @keyframes rainAnimation {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(100%); }
-    }
-
-    .line-text {
-      font-size: 40px;
+      background: radial-gradient(circle, rgba(255, 102, 178, 0.8), rgba(204, 0, 102, 0.8));
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 48px;
       font-weight: bold;
-      color: #ff0066;
-      opacity: 0;
-      animation: fadeInText 2s ease-out forwards;
+      z-index: 100;
       text-align: center;
-      letter-spacing: 1px;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      animation: fadeInMessage 1.5s ease-out forwards;
     }
 
-    @keyframes fadeInText {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInMessage {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
+    .sparkles {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .sparkle {
+      position: absolute;
+      background-color: #ff66b2;
+      border-radius: 50%;
+      animation: sparkleAnimation 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkleAnimation {
+      0% { transform: scale(0); opacity: 0.8; }
+      50% { transform: scale(1.5); opacity: 1; }
+      100% { transform: scale(0); opacity: 0.8; }
+    }
   </style>
 </head>
 <body>
-
   <!-- Floating Hearts for a romantic feel -->
   <div class="floating-heart" style="animation-delay: 0s;">💖</div>
+  <div class="floating-heart" style="animation-delay: 2s;">💖</div>
   <div class="floating-heart" style="animation-delay: 4s;">💖</div>
+  <div class="floating-heart" style="animation-delay: 6s;">💖</div>
   <div class="floating-heart" style="animation-delay: 8s;">💖</div>
 
-  <!-- Main Card -->
-  <div class="card">
-    <h1>Be My Valentine!</h1>
-    <h2>Let's make this Valentine's Day unforgettable.</h2>
-    <button class="button" onclick="displayMessage()">Say Yes!</button>
+  <div class="card" onclick="revealContent()">
+    <h1>Love U Always, Sumi</h1>
+    <h2>Click to reveal my love message! 💖</h2>
+    <button class="button">Open</button>
   </div>
 
-  <!-- New Card with Rain Effect -->
-  <div class="rain-card" id="rainCard">
-    <div class="rain"></div>
-    <div class="line-text" id="lineText">I can't wait to spend this day with you.</div>
+  <div class="container" id="content" style="display: none;">
+    <div class="heart">💖</div>
+    <h1>Will You Be My Valentine, Sumi?</h1>
+    <h2>Let's make this Valentine's Day unforgettable!</h2>
+    <button class="button" id="yesButton" onclick="sayYes()">Say Yes! 💌</button>
+    <button class="button" id="noButton" onclick="sayNo()">No 🙁</button>
+    <div id="heartsContainer" class="hearts-container">
+      <div class="heart-anim">💖</div>
+      <div class="heart-anim">💖</div>
+      <div class="heart-anim">💖</div>
+      <div class="heart-anim">💖</div>
+      <div class="heart-anim">💖</div>
+    </div>
+    <div id="loveMessage" class="love-message" style="display: none;">Love U forever, my love, my queen! 💖</div>
   </div>
 
-  <!-- Hearts Container -->
-  <div class="hearts-container">
-    <div class="heart-anim">❤️</div>
-    <div class="heart-anim">❤️</div>
-    <div class="heart-anim">❤️</div>
+  <!-- Sparkles for magical effects -->
+  <div class="sparkles">
+    <div class="sparkle" style="top: 10%; left: 20%; width: 5px; height: 5px; animation-duration: 3s;"></div>
+    <div class="sparkle" style="top: 50%; left: 30%; width: 10px; height: 10px; animation-duration: 4s;"></div>
+    <div class="sparkle" style="top: 40%; left: 60%; width: 7px; height: 7px; animation-duration: 5s;"></div>
+    <div class="sparkle" style="top: 70%; left: 50%; width: 8px; height: 8px; animation-duration: 6s;"></div>
+    <div class="sparkle" style="top: 30%; left: 80%; width: 6px; height: 6px; animation-duration: 7s;"></div>
   </div>
 
-  <!-- Footer -->
-  <footer>Made with love ❤️ by You</footer>
+  <footer>
+    <p>For my LifePartner ❤️</p>
+  </footer>
+
+  <div id="fullScreenMessage" class="full-screen-message" style="display: none;">
+    You are now my Life Partner, and I will be with you forever, my love 💖
+  </div>
 
   <script>
-    function displayMessage() {
-      document.getElementById('rainCard').style.opacity = 1;
-      document.getElementById('lineText').style.opacity = 1;
+    function revealContent() {
+      document.getElementById('content').style.display = 'block';
+      document.querySelector('.card').style.display = 'none';
+    }
+
+    function sayYes() {
+      // Show hearts animation and love message
+      document.getElementById('heartsContainer').style.display = 'block';
+      document.getElementById('loveMessage').style.display = 'block';
+      document.getElementById('yesButton').disabled = true; // Disable the "Yes" button after clicking
+      document.getElementById('noButton').disabled = true; // Disable the "No" button after clicking
+
+      // Show full-screen message
+      setTimeout(function() {
+        document.getElementById('fullScreenMessage').style.display = 'flex';
+      }, 2000); // Delay for a couple of seconds for effect
+    }
+
+    function sayNo() {
+      const noButton = document.getElementById('noButton');
+
+      // Continuously move the "No" button to new random positions with each click
+      noButton.style.position = 'absolute';
+      noButton.style.top = `${Math.random() * 70 + 20}%`;  // Random vertical position
+      noButton.style.left = `${Math.random() * 80 + 10}%`;  // Random horizontal position
     }
   </script>
-
 </body>
 </html>
