@@ -123,152 +123,59 @@
       to { opacity: 1; }
     }
 
-    footer {
-      position: absolute;
-      bottom: 10px;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
-      animation: bounceFooter 2s ease-out infinite alternate;
-    }
-
-    @keyframes bounceFooter {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(0); }
-    }
-
-    .hearts-container {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 20;
-    }
-
-    .heart-anim {
-      font-size: 30px;
+    /* Raining Effect Card */
+    .rain-card {
+      max-width: 800px;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 25px;
+      text-align: center;
       color: #ff0066;
-      animation: heartAnimation 0.5s ease-in-out infinite;
-      margin: 10px;
-      display: inline-block;
+      box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+      opacity: 0;
+      animation: fadeInCard 2s ease-out forwards;
+      overflow: hidden;
     }
 
-    @keyframes heartAnimation {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.5); }
-      100% { transform: scale(1); }
-    }
-
-    .love-message {
-      font-size: 40px;
-      font-weight: bold;
-      color: #ff0066;
-      margin-top: 30px;
-      animation: fadeLoveMessage 3s ease-out, floatMessage 2s ease-in-out infinite alternate;
-      text-shadow: 0 0 10px rgba(255, 102, 178, 0.8);
-    }
-
-    @keyframes fadeLoveMessage {
+    @keyframes fadeInCard {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    @keyframes floatMessage {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
-    }
-
-    .full-screen-message {
-      position: fixed;
+    /* Raining Animation */
+    .rain {
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(255, 102, 178, 0.8), rgba(204, 0, 102, 0.8));
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 48px;
-      font-weight: bold;
-      z-index: 100;
-      text-align: center;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      animation: fadeInMessage 1.5s ease-out forwards;
-    }
-
-    @keyframes fadeInMessage {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .sparkles {
-      position: absolute;
-      top: 50%;
-      left: 50%;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 10;
+      background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png') repeat;
+      animation: rainAnimation 1s linear infinite;
+      z-index: -1;
     }
 
-    .sparkle {
-      position: absolute;
-      background-color: #ff66b2;
-      border-radius: 50%;
-      animation: sparkleAnimation 2s ease-in-out infinite;
+    @keyframes rainAnimation {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
     }
 
-    @keyframes sparkleAnimation {
-      0% { transform: scale(0); opacity: 0.8; }
-      50% { transform: scale(1.5); opacity: 1; }
-      100% { transform: scale(0); opacity: 0.8; }
-    }
-
-    /* New Slide Style */
-    .missing-message-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255, 102, 178, 0.8), rgba(204, 0, 102, 0.8));
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .line-text {
       font-size: 40px;
-      color: #fff;
       font-weight: bold;
-      opacity: 0;
-      animation: fadeInSlide 3s ease-out forwards;
-      text-align: center;
-      padding: 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      border-radius: 15px;
-    }
-
-    @keyframes fadeInSlide {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .message-text {
-      font-size: 36px;
       color: #ff0066;
-      animation: slideText 5s ease-out infinite;
+      opacity: 0;
+      animation: fadeInText 2s ease-out forwards;
       text-align: center;
+      letter-spacing: 1px;
     }
 
-    @keyframes slideText {
-      0% { transform: translateX(100%); }
-      50% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
+
   </style>
 </head>
 <body>
@@ -285,6 +192,12 @@
     <button class="button" onclick="displayMessage()">Say Yes!</button>
   </div>
 
+  <!-- New Card with Rain Effect -->
+  <div class="rain-card" id="rainCard">
+    <div class="rain"></div>
+    <div class="line-text" id="lineText">I can't wait to spend this day with you.</div>
+  </div>
+
   <!-- Hearts Container -->
   <div class="hearts-container">
     <div class="heart-anim">❤️</div>
@@ -295,17 +208,10 @@
   <!-- Footer -->
   <footer>Made with love ❤️ by You</footer>
 
-  <!-- Missing Message Slide (Hidden initially) -->
-  <div id="missingMessageSlide" class="missing-message-slide">
-    <div class="message-text">
-      I am missing U badly mero motu last miss gardai xau hjur lai malai hug garna mn lako xa last miss gardai xau
-    </div>
-  </div>
-
   <script>
     function displayMessage() {
-      document.getElementById('missingMessageSlide').style.display = "flex";
-      document.getElementById('missingMessageSlide').style.opacity = 1;
+      document.getElementById('rainCard').style.opacity = 1;
+      document.getElementById('lineText').style.opacity = 1;
     }
   </script>
 
