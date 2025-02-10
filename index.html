@@ -229,82 +229,85 @@
       50% { transform: scale(1.5); opacity: 1; }
       100% { transform: scale(0); opacity: 0.8; }
     }
+
+    /* New Slide Style */
+    .missing-message-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 102, 178, 0.8), rgba(204, 0, 102, 0.8));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      color: #fff;
+      font-weight: bold;
+      opacity: 0;
+      animation: fadeInSlide 3s ease-out forwards;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border-radius: 15px;
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .message-text {
+      font-size: 36px;
+      color: #ff0066;
+      animation: slideText 5s ease-out infinite;
+      text-align: center;
+    }
+
+    @keyframes slideText {
+      0% { transform: translateX(100%); }
+      50% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head>
 <body>
+
   <!-- Floating Hearts for a romantic feel -->
   <div class="floating-heart" style="animation-delay: 0s;">💖</div>
-  <div class="floating-heart" style="animation-delay: 2s;">💖</div>
   <div class="floating-heart" style="animation-delay: 4s;">💖</div>
-  <div class="floating-heart" style="animation-delay: 6s;">💖</div>
   <div class="floating-heart" style="animation-delay: 8s;">💖</div>
 
-  <div class="card" onclick="revealContent()">
-    <h1>Love U Always, Sumi</h1>
-    <h2>Click to reveal my love message! 💖</h2>
-    <button class="button">Open</button>
+  <!-- Main Card -->
+  <div class="card">
+    <h1>Be My Valentine!</h1>
+    <h2>Let's make this Valentine's Day unforgettable.</h2>
+    <button class="button" onclick="displayMessage()">Say Yes!</button>
   </div>
 
-  <div class="container" id="content" style="display: none;">
-    <div class="heart">💖</div>
-    <h1>Will You Be My Valentine, Sumi?</h1>
-    <h2>Let's make this Valentine's Day unforgettable!</h2>
-    <button class="button" id="yesButton" onclick="sayYes()">Say Yes! 💌</button>
-    <button class="button" id="noButton" onclick="sayNo()">No 🙁</button>
-    <div id="heartsContainer" class="hearts-container">
-      <div class="heart-anim">💖</div>
-      <div class="heart-anim">💖</div>
-      <div class="heart-anim">💖</div>
-      <div class="heart-anim">💖</div>
-      <div class="heart-anim">💖</div>
+  <!-- Hearts Container -->
+  <div class="hearts-container">
+    <div class="heart-anim">❤️</div>
+    <div class="heart-anim">❤️</div>
+    <div class="heart-anim">❤️</div>
+  </div>
+
+  <!-- Footer -->
+  <footer>Made with love ❤️ by You</footer>
+
+  <!-- Missing Message Slide (Hidden initially) -->
+  <div id="missingMessageSlide" class="missing-message-slide">
+    <div class="message-text">
+      I am missing U badly mero motu last miss gardai xau hjur lai malai hug garna mn lako xa last miss gardai xau
     </div>
-    <div id="loveMessage" class="love-message" style="display: none;">Love U forever, my love, my queen! 💖</div>
-  </div>
-
-  <!-- Sparkles for magical effects -->
-  <div class="sparkles">
-    <div class="sparkle" style="top: 10%; left: 20%; width: 5px; height: 5px; animation-duration: 3s;"></div>
-    <div class="sparkle" style="top: 50%; left: 30%; width: 10px; height: 10px; animation-duration: 4s;"></div>
-    <div class="sparkle" style="top: 40%; left: 60%; width: 7px; height: 7px; animation-duration: 5s;"></div>
-    <div class="sparkle" style="top: 70%; left: 50%; width: 8px; height: 8px; animation-duration: 6s;"></div>
-    <div class="sparkle" style="top: 30%; left: 80%; width: 6px; height: 6px; animation-duration: 7s;"></div>
-  </div>
-
-  <footer>
-    <p>For my LifePartner ❤️</p>
-  </footer>
-
-  <div id="fullScreenMessage" class="full-screen-message" style="display: none;">
-    You are now my Life Partner, and I will be with you forever, my love 💖
   </div>
 
   <script>
-    function revealContent() {
-      document.getElementById('content').style.display = 'block';
-      document.querySelector('.card').style.display = 'none';
-    }
-
-    function sayYes() {
-      // Show hearts animation and love message
-      document.getElementById('heartsContainer').style.display = 'block';
-      document.getElementById('loveMessage').style.display = 'block';
-      document.getElementById('yesButton').disabled = true; // Disable the "Yes" button after clicking
-      document.getElementById('noButton').disabled = true; // Disable the "No" button after clicking
-
-      // Show full-screen message
-      setTimeout(function() {
-        document.getElementById('fullScreenMessage').style.display = 'flex';
-      }, 2000); // Delay for a couple of seconds for effect
-    }
-
-    function sayNo() {
-      const noButton = document.getElementById('noButton');
-
-      // Continuously move the "No" button to new random positions with each click
-      noButton.style.position = 'absolute';
-      noButton.style.top = `${Math.random() * 70 + 20}%`;  // Random vertical position
-      noButton.style.left = `${Math.random() * 80 + 10}%`;  // Random horizontal position
+    function displayMessage() {
+      document.getElementById('missingMessageSlide').style.display = "flex";
+      document.getElementById('missingMessageSlide').style.opacity = 1;
     }
   </script>
+
 </body>
 </html>
