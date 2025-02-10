@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Be My Valentine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(45deg, #ff66b2, #ff3399, #cc0066);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      animation: backgroundAnimation 15s ease-in-out infinite;
+    }
+
+    @keyframes backgroundAnimation {
+      0% { background: linear-gradient(45deg, #ff66b2, #ff3399, #cc0066); }
+      50% { background: linear-gradient(45deg, #ff3399, #cc0066, #ff66b2); }
+      100% { background: linear-gradient(45deg, #cc0066, #ff66b2, #ff3399); }
+    }
+
+    .card {
+      max-width: 800px;
+      text-align: center;
+      z-index: 10;
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      animation: slideIn 2s ease-out;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      font-weight: 300;
+      animation: fadeIn 3s ease-out;
+    }
+
+    .button {
+      background-color: #ff66b2;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 10px;
+    }
+
+    .button:hover {
+      transform: scale(1.1);
+      background-color: #ff3399;
+    }
+
+    .heart {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 80px;
+      color: #ff0066;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.2); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .button:active {
+      transform: scale(0.9);
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .hearts-container {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+    }
+
+    .heart-anim {
+      font-size: 30px;
+      color: #ff0066;
+      animation: heartAnimation 0.5s ease-in-out infinite;
+      margin: 10px;
+      display: inline-block;
+    }
+
+    @keyframes heartAnimation {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.5); }
+      100% { transform: scale(1); }
+    }
+
+    .love-message {
+      font-size: 32px;
+      font-weight: bold;
+      color: #ff0066;
+      margin-top: 30px;
+      animation: fadeLoveMessage 3s ease-out;
+    }
+
+    @keyframes fadeLoveMessage {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .full-screen-message {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      font-weight: bold;
+      z-index: 100;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="card" onclick="revealContent()">
+    <h1>Surprise for my babe Sumi?</h1>
+    <h2>Click to reveal my love message! 💖</h2>
+  </div>
+
+  <div class="container" id="content" style="display: none;">
+    <div class="heart">💖</div>
+    <h1>Will You Be My Valentine, Sumi?</h1>
+    <h2>Let's make this Valentine's Day unforgettable!</h2>
+    <button class="button" id="yesButton" onclick="sayYes()">Say Yes! 💌</button>
+    <button class="button" id="noButton" onclick="sayNo()">No 🙁</button>
+    <div id="heartsContainer" class="hearts-container">
+      <div class="heart-anim">💖</div>
+      <div class="heart-anim">💖</div>
+      <div class="heart-anim">💖</div>
+      <div class="heart-anim">💖</div>
+      <div class="heart-anim">💖</div>
+    </div>
+    <div id="loveMessage" class="love-message" style="display: none;">Love U forever, my love, my queen! 💖</div>
+  </div>
+  <footer>
+    <p>For my LifePartner ❤️</p>
+  </footer>
+
+  <div id="fullScreenMessage" class="full-screen-message" style="display: none;">
+    You are now my Life Partner, and I will be with you forever, my love 💖
+  </div>
+
+  <script>
+    function revealContent() {
+      document.getElementById('content').style.display = 'block';
+      document.querySelector('.card').style.display = 'none';
+    }
+
+    function sayYes() {
+      // Show hearts animation and love message
+      document.getElementById('heartsContainer').style.display = 'block';
+      document.getElementById('loveMessage').style.display = 'block';
+      document.getElementById('yesButton').disabled = true; // Disable the "Yes" button after clicking
+      document.getElementById('noButton').disabled = true; // Disable the "No" button after clicking
+
+      // Show full-screen message
+      setTimeout(function() {
+        document.getElementById('fullScreenMessage').style.display = 'flex';
+      }, 2000); // Delay for a couple of seconds for effect
+    }
+
+    function sayNo() {
+      const noButton = document.getElementById('noButton');
+
+      // Continuously move the "No" button to new random positions with each click
+      noButton.style.position = 'absolute';
+      noButton.style.top = `${Math.random() * 70 + 20}%`;  // Random vertical position
+      noButton.style.left = `${Math.random() * 80 + 10}%`;  // Random horizontal position
+    }
+  </script>
+</body>
+</html>
